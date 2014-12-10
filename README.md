@@ -1,4 +1,4 @@
-TakumiBaba's master-thesis
+marutaru's master-thesis
 =====================================
 
 Writing a master's thesis!!
