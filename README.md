@@ -3,11 +3,11 @@ TakumiBaba's master-thesis
 
 Writing a master's thesis!!
 
-This thesis use (this template)[http://github.com/TakumiBaba/master-thesis].
+This thesis use (this template)[http://github.com/marutaru/master-thesis].
 
 # usage (Use Makefile)
 
-    % git clone git@github.com:TakumiBaba/master-thesis.git
+    % git clone git@github.com:marutaru/master-thesis.git
     % cd master-thesis
     % make
 
@@ -15,7 +15,7 @@ This thesis use (this template)[http://github.com/TakumiBaba/master-thesis].
 
 if you use gulp, main.pdf is compiled automatically
 
-    % git clone git@github.com:TakumiBaba/master-thesis.git
+    % git clone git@github.com:marutaru/master-thesis.git
     % cd master-thesis
     $ npm install -g gulp
     $ npm install
