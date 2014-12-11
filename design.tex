@@ -1,9 +1,9 @@
 \chapter{設計}
 \label{chap:design}
 
-\section{コンテクストによる日本語入力システム概要}
+\section{Rive日本語入力システム概要}
 
-コンテクスト入力システムは以下のものによって構成されている。
+Rive日本語入力システムは以下のものによって構成されている。
 
 \begin{itemize}
   \item Rive Client
@@ -18,21 +18,29 @@
 
 \section{Rive Client}
 \subsection{概要}
+AndroidOS向けのIME
 \subsection{実装}
+AndroidOS向けのInput Method Editor
 
 \section{Rive Server}
-\subsection{仕組み}
-\subsection{プログラム例}
+\subsection{概要}
+Rive Clientと通信し、適切な候補単語を推測するシステム
 \subsection{実装}
 
 \section{Rive Analytics}
-\subsection{仕組み}
+\subsection{概要}
+文字入力のデータを受け取り解析することでシステムの向上に役立てる
 \subsection{実装}
+Rive Clientからデータを受け取りバージョンごとに管理する
 
 \section{Rive BatchProcessing}
-\subsection{仕組み}
+\subsection{概要}
+定期的に処理を行うシステムの総称
 \subsection{実装}
+インターネット上のデータをクロールする
 
 \section{Rive WebService}
 \subsection{概要}
+システムの使用法の解説と、お試しができる
 \subsection{実装}
+WEBぺーじとして実装
