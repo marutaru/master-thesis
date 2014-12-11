@@ -11,7 +11,7 @@ This thesis use (this template)[http://github.com/marutaru/master-thesis].
     % cd master-thesis
     % make
 
-# usage (Use Gulp)
+# usage (Use Gulp for Ubuntu)
 
 if you use gulp, main.pdf is compiled automatically
 
