@@ -24,7 +24,7 @@ gulp.task 'clean', ->
 
 gulp.task 'default', ['compile'], ->
   gulp.src 'main.tex'
-  .pipe exec 'open main.pdf'
+  .pipe exec 'evince main.pdf'
   .pipe exec.reporter
     err: true
     stderr: true
