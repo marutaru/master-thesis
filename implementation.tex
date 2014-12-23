@@ -19,35 +19,49 @@
 
 \begin{figure}[htbp]
   \begin{center}
-    \includegraphics[width=12cm,bb=0 0 469 366]{images/clientflow}
+    \includegraphics[width=14cm,bb=0 0 469 366]{images/clientflow}
   \end{center}
   \caption{Rive Clientフローイメージ}
   \label{fig:clientflow}
 \end{figure}
 
-\subsection{取得コンテキスト}
+\subsection{コンテキスト取得}
 
-入力が開始されてから終了まで変わらないコンテキスト何度も取得すると
-システムに負荷がかかるため、変わるものとそうでないものに分類した。
-入力が開始してから変化しないコンテキストを静的コンテキスト。
-入力が開始してから変化する可能性があるコンテキストを動的コンテキストとした。
-
-\subsubsection{動的コンテキスト}
-
-時間、位置情報、加速度、
-
-\subsubsection{静的コンテキスト}
-
-\subsubsection{時間}
-時間としてはunixtimeで4桁で取得。
-\subsubsection{位置情報}
-\subsubsection{加速度}
-\subsubsection{以前の入力}
-\subsubsection{入力の状態}
-
-\subsection{}
+取得するコンテキストについては\ref{sec:getcontext}項を参照。
+コンテキストはユーザーに入力してもらえるものは入力してもらう。
+またデバイスで取得可能なものを全て取得し、推薦システムに使う。
 
 \section{Rive Server}
+\subsection{システム構成}
+
+サーバーの中身は大きくRoutting Server,beforeRules,afterRules,Jubatusの
+４つを実装した。
+それぞれ候補単語の計算手法が異なるため此のような分割になっている。
+\begin{figure}[htbp]
+  \begin{center}
+    \includegraphics[width=14cm,bb=0 0 466 316]{images/riveserver.png}
+  \end{center}
+  \caption{Rive Server概要図}
+  \label{fig:riveserver}
+\end{figure}
+
+\subsection{Routing Server}
+このサーバーはふたとおりの役割を持っている。
+一つはデバイスから受け取ったコンテキストデータを
+beforeRules,Jubatus,afterRulesの３つの計算エンジンに振り分け送信する役割である。
+もうひとつは受け取ったデータを受け取り次第、デバイスに送信する役割である。
+
+\subsection{beforeRules}
+このエンジンはコンテキストデータが送られてきた際に、
+一定のルールに基づいているものをまとめている。
+このルールは著者？開発者？がよく使われる単語を推測し実装した。
+例えば、Twitter\cite{Twitter}クライアントに入力を行っている（行おうとしている）
+場合に「なう」「＠」の候補単語を返すようになっている。
+
+\subsection{Jubatus}
+このシステムについては第\ref{sec:jubatus}項参照。
+
+\subsection{afterRules}
 
 \section{Rive Analytics}
 
