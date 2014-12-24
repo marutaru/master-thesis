@@ -2,6 +2,7 @@
 \label{implementation}
 
 \section{Rive Client}
+\label{sec:riveclient}
 \subsection{システムフロー}
 
 このシステムが立ち上がるとまず始めにonCreate()が呼ばれ、初期化を行う。
@@ -19,7 +20,7 @@
 
 \begin{figure}[htbp]
   \begin{center}
-    \includegraphics[width=14cm,bb=0 0 469 366]{images/clientflow}
+    \includegraphics[width=14cm,bb=0 0 562 366]{images/clientflow}
   \end{center}
   \caption{Rive Clientフローイメージ}
   \label{fig:clientflow}
@@ -59,12 +60,32 @@ beforeRules,Jubatus,afterRulesの３つの計算エンジンに振り分け送�
 場合に「なう」「＠」の候補単語を返すようになっている。
 
 \subsection{Jubatus}
-このシステムについては第\ref{sec:jubatus}項参照。
+このエンジンについては第\ref{sec:jubatus}項参照。
 
 \subsection{afterRules}
+このエンジンはbeforeRulesより重要度が低く、
+また計算に時間がかかるものを推測して実装した。
+例えば、最寄り駅をクエリとしてその駅を通っている電車の線を
+その場でWEBから検索し推薦単語として返すことができる。
 
 \section{Rive Analytics}
+このシステムはRive Client\ref{sec:riveclient}でのプロセスの終わりに
+送られてくるデータを受信し、解析するシステムである。
+開発者はこのシステムを使用することによって、新しい機能の有用性などを
+確かめることができる。
+
+\subsection{指標値}
+\begin{itemize}
+  \item CPI(click per input)
+    入力がどれだけどうか
+  \item CPI
+  \item CPI
+\end{itemize}
 
 \section{Rive BatchProcessing}
+このシステムは定期的に処理を行うものを管理し実行している。
 
 \section{Rive WebService}
+このシステムはインターネット上で閲覧可能なホームページである。
+Riveシステムを試用することができる。
+
