@@ -1,6 +1,5 @@
 \chapter{ユーザーインターフェース}
 \label{userinterface}
-
 文字入力を行うほとんどのユーザーはIMEを利用する際にアプリケーションごとに
 IMEを変えたりせず、
 あらゆるアプリケーションに対して同じIMEを利用する。
@@ -10,13 +9,14 @@ IMEを変えたりせず、
 既存のIMEにインターフェースに
 独自のインターフェースを実装することでRive日本語入力システムを実現した。
 
+\newpage
 \section{キーボード}
 モバイルデバイス使用者が使う入力のうち最も使用者が多い二つの
 キーボードを使用可能にした。
 キーボードはqwertyキーボードとフリック入力キーボードの二つを実装した。
 ユーザーは好みに合わせて二つのキーボードを使用することができる。
 
-\begin{figure}
+\begin{figure}[htbp]
   \begin{minipage}{0.5\hsize}
     \begin{center}
       \includegraphics[width=7cm,bb=0 0 417 290]{images/qwerty.png}
@@ -49,7 +49,7 @@ IMEとしての通常の文字変換もないと普段の使用に耐えるこ�
 入力の多様性を確保する。
 この単語変換機能は上下段両方に使用可能な機能である。
 
-\begin{figure}
+\begin{figure}[htbp]
   \begin{center}
     \includegraphics[width=14cm,bb=0 0 461 485]{images/candidateflick.png}
   \end{center}
@@ -57,7 +57,7 @@ IMEとしての通常の文字変換もないと普段の使用に耐えるこ�
   \label{fig:wordflick}
 \end{figure}
 
-\section{候補ビューのスクロール}
+\section{候補ビューの横スクロール}
 上下段どちらかの候補ビューを横にスクロール際に、
 もう一方も連動して動かせるように実装した。
 候補ビューをスクロールさせる際にはどちらの段にも表示されていない単語を
