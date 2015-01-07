@@ -1,6 +1,6 @@
 \chapter{設計}
 \label{chap:design}
-本章では設計について述べる。
+本章ではRive日本語入力の全体の設計とその思想について述べる。
 
 \newpage
 \section{Rive日本語入力システム}
@@ -9,7 +9,7 @@ Rive日本語入力システムは以下のものによって構成されてい�
   \item Rive Client
   \item Rive Server
   \item Rive Analytics
-  \item Rive Btachprocessing
+  \item Rive Batchprocessing
   \item Rive Webservice
 \end{itemize}
 これらのシステムがお互いに作用することで
@@ -24,9 +24,9 @@ Rive日本語入力システムが実現されている。
 
 \section{Rive Client}
 モバイルデバイスで利用可能なIMEアプリケーション本体。
-ユーザーは基本的にこのシステムのみ使用する。
+ユーザーは基本的にこのアプリケーションのみ使用する。
 始めにRive Serverにコンテキストデータを送る。
-その後帰ってきたデータを推薦候補単語として表示する。
+また帰ってきたデータを推薦単語としてユーザーに提示する。
 
 \section{Rive Server}
 Rive日本語入力における適切な候補単語を推測するサーバーの総称。
@@ -36,9 +36,12 @@ Rive Clientから受け取ったデータを解析し、
 
 \section{Rive Analytics}
 文字入力のデータを受け取り解析することで開発者の手助けをするシステム。
+バージョン管理システムであるgitのcommitとデータを紐付けて
+有用性を確かめる為のシステム。
 
 \section{Rive Batchprocessing}
 定期的に処理を行うシステムの総称。
+主にDBの更新、編集などを行う。
 
 \section{Rive Webservice}
 システムを試用するためのWEBページとして実装。
