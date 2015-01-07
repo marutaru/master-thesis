@@ -94,20 +94,12 @@ IMEの必要がなく、ほとんど使われていないのが現状である�
 しかしIMEのシステムに関しては携帯電話の時から大きな変化はない。
 日本語IMEにおける内部的なシステムとしては、
 連文節変換や予測入力\cite{pobox}の導入がおこなわれ、
-広く普及したがまだ改善の余地は多い。
-文字入力の方法についても
+広く普及したがいまだ改善の余地は多く残されていると考える。
 
-文字入力にもデバイスに適したよりよいものがある。
-文字入力のユーザの体験ももっと向上すべきである。
-今回は日本人向けのシステムとして作った。
-
-ユーザにはそれぞれコンテキストがある。
-コンテキストによって入力したい単語は推測できるのではないか
-
-\section{日本語IMEの問題点と期待}
+\section{日本語IMEへの不満と期待}
 日本語IMEには様々な問題点が存在する。
 
-\subsection{問題点}
+\subsection{日本語IMEの不満}
 楽天リサーチによる「スマートフォンに関する調査」
 (出典:\cite{rakutensmartphone})によると、
 スマートフォンを使うユーザーが挙げる不満点の中で
@@ -122,9 +114,36 @@ IMEの必要がなく、ほとんど使われていないのが現状である�
 \end{figure}
 文字入力がしにくい理由としてはデバイスが携帯電話から
 変化しているにもかかわらず、
-IMEはほとんど変わっていないためであると考えた。
+IMEのインタフェースはほとんど変わっていないためであると考えた。
+携帯電話の時には折りたたみ式やストレート式、スライド式といくつか存在したが、
+\begin{figure}[htbp]
+  \begin{minipage}{0.3\hsize}
+    \begin{center}
+      \includegraphics[width=50mm,bb=0 0 1024 768]{images/oritatami.png}
+    \end{center}
+    \caption{折りたたみ式携帯電話例:(出典:\cite{keitai})}
+    \label{fig:oritatami}
+  \end{minipage}
+  \begin{minipage}{0.3\hsize}
+    \begin{center}
+      \includegraphics[width=50mm,bb=0 0 147 196]{images/straight.png}
+    \end{center}
+    \caption{ストレート式携帯電話例(出典:\cite{keitai})}
+    \label{fig:straight}
+  \end{minipage}
+  \begin{minipage}{0.3\hsize}
+    \begin{center}
+      \includegraphics[width=50mm,bb=0 0 154 205]{images/slide.png}
+    \end{center}
+    \caption{スライド式携帯電話例:(出典:\cite{keitai})}
+    \label{fig:slide}
+  \end{minipage}
+\end{figure}
+入力方式はどれも同じであり、
+キーを何度も押すことで、(三回タッチすると「あ->い->う」の用に変化する)
+文字を入力していく方式であった。
 
-\subsection{期待}
+\subsection{IMEへの期待}
 最終的には入力したいと思った文字をそのまま
 入力できるようなIMEを開発したいと考えている。
 その前段階としてコンテキストからユーザーの

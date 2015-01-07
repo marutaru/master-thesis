@@ -1,13 +1,17 @@
 \chapter{序論}
 \label{chap:introduction}
-本章は序論である。
+本章では研究の目的、使用する用語の定義と
+論文の構成について述べる。
 
 \newpage
 \section{研究の目的}
-ユーザの文字入力の速度を向上させる。
-ユーザの文字入力における楽しさを向上させる。
-\section{用語定義}
+本研究の目的は世の中の日本語を入力する人々が
+コンピュータあるいはモバイルデバイスへの入力を行う際に、
+ユーザの文字入力における楽しさを向上させると共に
+文字入力の速度を向上させることが目的である。
+その目的を達成するためにRive日本語入力というシステムを実装・開発した。
 
+\section{用語定義}
 本論文において使用する用語を以下のように定義する。
 
 \begin{description}
@@ -24,19 +28,10 @@
     本論文において、スマートフォンと同じ要件を満たしながら、
     画面のサイズがスマートフォンより大きい物を意味している。
   \item[IME]\mbox{}\\
-    IMEとはInput Method Editorの略である。
+    IMEとはInput Method Editorの略であり
+    文字入力補助ソフトと言われる。。
     コンピュータなどの情報機器において文字入力をする際に、
     それを手助けするシステムのことをIMEと呼ぶ。
-    \begin{quote}
-      インプット メソッド エディタ(Input Method Editor)、
-      訳して入力方式エディタとは、パーソナルコンピュータを
-      はじめとした情報機器で、文字入力を補助する
-      ソフトウェアである。略称IME。
-      通常は言語ごとに別個に用意されるため、
-      言語に応じ日本語インプットメソッドエディタ
-      （日本語IME、日本語文字入力補助ソフト）
-      などと呼ばれる。\cite[出典]{ime}
-    \end{quote}
   \item[コンテキスト]\mbox{}\\
     コンテキストとは本論文において状況という意味で使っている。
   \item[予測変換]\mbox{}\\
@@ -47,23 +42,19 @@
   \item[候補単語]\mbox{}\\
     本論文に置いて候補単語とは入力における、
     変換候補と推薦候補の二つを合わせた表現である。
+  \item[クライアント]\mbox{}\\
+    本論文においてクライアントとは
+    ユーザーが直接利用するアプリケーション
+    あるいはそのデバイスを指す表現である。
 \end{description}
 
 \section{本論文の構成}
-
-
-第\ref{chap:background}章。
-
-第\ref{chap:design}章。
-
-第\ref{chap:recommend}章。
-
-第\ref{chap:implementation}章。
-
-第\ref{chap:userinterface}章。
-
-第\ref{chap:discussion}章。
-
-第\ref{chap:related}章。
-
-第\ref{chap:conclusion}章。
+第\ref{chap:background}章ではRive日本語入力の開発に至った背景について述べる。
+第\ref{chap:design}章ではRive日本語入力の設計について述べる。
+第\ref{chap:recommend}章では推薦システムの使用について述べる。
+第\ref{chap:implementation}章ではRive日本語入力の実装について述べる。
+第\ref{chap:userinterface}章ではRive日本語入力のユーザーインターフェースについて述べる。
+第\ref{chap:discussion}章ではRive日本語入力の課題について述べる。
+第\ref{chap:related}章では関連研究を述べる。
+第\ref{chap:conclusion}章では本研究の結論を述べる。
+最後に第\ref{chap:publication}章では研究に関する発表について述べる。

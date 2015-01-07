@@ -6,11 +6,12 @@
 \newpage
 \section{Rive Client}
 \label{sec:riveclient}
-本システムはAndroidOS\cite{android}上で動くアプリケーション
+本システムはAndroidOS\footnote[1]{http://www.google.com/intl/ja/mobile/android/}
+上で動くアプリケーション
 として実装した。
 ユーザは本アプリケーションをインストールし、
 使用するIMEに選択することで
-Rive日本語入力を利用可能することができる。
+Rive日本語入力を利用することができる。
 
 \subsection{システムフロー}
 このシステムが立ち上がるとまず始めにonCreate()が呼ばれ、初期化を行う。
@@ -25,10 +26,10 @@ Rive日本語入力を利用可能することができる。
 最終的にユーザーが入力を終了した場合にはonFinishInput()が呼ばれ、
 今回のユーザが行った動作とコンテキストを紐付けサーバーに送信する。
 通信が終わり次第onDestory()が呼ばれ本システムは終了する。
-(システムフローイメージ図:\ref{fig;clientflow})
+(システムフローイメージ図:\ref{fig:clientflow})
 \begin{figure}[htbp]
   \begin{center}
-    \includegraphics[width=14cm,bb=0 0 562 366]{images/clientflow}
+    \includegraphics[width=140mm,bb=0 0 562 366]{images/clientflow}
   \end{center}
   \caption{Rive Clientフローイメージ}
   \label{fig:clientflow}
@@ -55,6 +56,20 @@ VPS上で動かしているサーバー群である。
   \caption{Rive Server概要図}
   \label{fig:riveserver}
 \end{figure}
+始めにクライアントがコンテキストデータをRouting Serverへ送信する。
+その後Routing ServerがbeforeRulesへコンテキストデータを送る。
+beforeRulesは送られてきたデータを元に推薦候補単語をRouting Serverに送る。
+Routing Serverは受け取ったデータをクライアントに返すと共に、
+Jubatusへコンテキストデータを再送する。
+Jubatusはそのデータを元に推薦候補単語を推測しRouting Serverへ送る。
+Routing Serverは受け取ったデータを更にクライアントへ送る。
+そしてそれと共にコンテキストデータをafterRulesに再送する。
+そのデータを元に推薦候補単語をRouting Serverへ送る。
+そしてそれをクライントに返すことで完了する。
+一回のタッチごとにこれら全てのプロセスを行う。
+またこれらの一度の過程ごとにユニークなIDをつけてあり、
+途中で新しいプロセスが始まった場合前のプロセスは破棄されることで
+常に最新の推薦候補単語を受け取ることができる。
 
 \subsection{Routing Server}
 このサーバーはふたとおりの役割を持っている。
@@ -67,7 +82,8 @@ beforeRules,Jubatus,afterRulesの３つの計算エンジンに振り分け送�
 このエンジンはコンテキストデータが送られてきた際に、
 一定のルールに基づいているものをまとめている。
 このルールは開発者がよく使う単語を推測し実装した。
-例えば、Twitter\cite{twitter}クライアントに入力を行っている（行おうとしている）
+例えば、Twitter\footnote[2]{http://twitter.com/}
+クライアントに入力を行っている（行おうとしている）
 場合に「なう」「＠」の候補単語を返すようになっている。
 
 \subsection{Jubatus}
@@ -85,6 +101,7 @@ beforeRules,Jubatus,afterRulesの３つの計算エンジンに振り分け送�
 送られてくるデータを受信し、解析するシステムである。
 開発者はこのシステムを使用することによって、新しい機能の有用性などを
 確かめることができる。
+
 \subsection{指標値に用いる単語の説明}
 \begin{description}
   \item[click] タッチ
@@ -149,7 +166,7 @@ beforeRules,Jubatus,afterRulesの３つの計算エンジンに振り分け送�
   \end{center}
 \end{figure}
 
-\section{Rive BatchProcessing}
+\section{Rive Batchprocessing}
 このシステムは定期的に処理を行うものを管理し実行している。
 インターネット上のデータをクロールし、
 DBを定期的にアップデートするプログラムなどが構成している。
@@ -159,4 +176,12 @@ DBを定期的にアップデートするプログラムなどが構成してい
 Rive ServerとRive Webserviceは通信を行い、
 仮想のコンテキストを作り出すことで
 推薦の状態を確かめることができる。
+(体験画面イメージ:\ref{fig:rivewebservice})
+\begin{figure}[htbp]
+  \begin{center}
+    \includegraphics[width=160mm,bb=0 0 1349 662]{images/rivewebservice.png}
+    \caption{Rive Webserviceの体験画面}
+    \label{fig:rivewebservice}
+  \end{center}
+\end{figure}
 

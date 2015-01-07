@@ -36,7 +36,8 @@ Rive Clientから受け取ったデータを解析し、
 
 \section{Rive Analytics}
 文字入力のデータを受け取り解析することで開発者の手助けをするシステム。
-バージョン管理システムであるgitのcommitとデータを紐付けて
+バージョン管理システムであるgit\footnote[1]{http://git-scm.com}
+のcommit\footnote[2]{http://git-scm.com/docs/git-commit}とデータを紐付けて
 有用性を確かめる為のシステム。
 
 \section{Rive Batchprocessing}
@@ -48,5 +49,8 @@ Rive Clientから受け取ったデータを解析し、
 またRive日本語入力の紹介も兼ねている。
 
 \section{システム間通信}
-Rive ClientとRive Server間の通信はWebsocket、
+Rive ClientとRive Server間の通信は
+Websocket\footnote[3]{http://dev.w3.org/html5/websockets/}、
 その他システム間はhttpによって実現した。
+Websocketを採用した理由はサーバー側からのプッシュ機構を導入するためと、
+httpより速度が早いためである。\cite{websocket}
