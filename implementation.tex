@@ -41,12 +41,14 @@ Rive日本語入力を利用することができる。
 その他デバイスで取得可能なものを全て取得し、推薦システムに使う。
 
 \section{Rive Server}
+\label{sec:riveserver}
 VPS上で動かしているサーバー群である。
 主に推薦に関する処理を担っている。
 
 \subsection{システム構成}
 サーバーの中身は大きくRoutting Server,beforeRules,afterRules,Jubatusの
 ４つを実装した。
+Routing ServerはNode.js\footnote{http://nodejs.jp/}によって実装した。
 それぞれ候補単語の計算手法が異なるため(図:\ref{fig:riveserver})
 ような分割になっている。
 \begin{figure}[htbp]
@@ -82,7 +84,7 @@ beforeRules,Jubatus,afterRulesの３つの計算エンジンに振り分け送�
 このエンジンはコンテキストデータが送られてきた際に、
 一定のルールに基づいているものをまとめている。
 このルールは開発者がよく使う単語を推測し実装した。
-例えば、Twitter\footnote[2]{http://twitter.com/}
+例えば、Twitter\footnote{http://twitter.com/}
 クライアントに入力を行っている（行おうとしている）
 場合に「なう」「＠」の候補単語を返すようになっている。
 

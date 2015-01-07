@@ -59,9 +59,25 @@ Twitterクライアントであれば、
 リプライを送る際に相手のアカウント名が自動で
 入力されるようになる等の入力補助がある。
 
-\section{機械学習}
+\section{コンテキストを使用した推薦システム}
+コンテキストを利用したシステムに関する研究は始め、
+位置情報や時間情報利用したシステムが多かった。
+その後、そこにユーザー情報を加えたシステムの研究が行われた。
+更にその後には、他のコンテキストを加えたシステムの研究が行われた。
+\cite{okukenta}
 
-\section{コンテキストアウェアな推薦}
-現在コンテキストアウェアな推薦を行うサービスは世の中にいくつか存在する。
-
-
+\subsection{コンテキストの分類}
+Rive日本語入力においては\ref{chap:recommend}において
+述べたように実装上、動的コンテキストと静的コンテキストの
+2種類に分類したが、
+Strangらの研究\cite{contextsurvey}によると以下に分類される。
+\begin{itemize}
+  \item Key-Value Models
+  \item Markup Schema Models
+  \item Graphical Models
+  \item Object Oriented Models
+  \item Logic Based Models
+  \item Ontology Based Models
+\end{itemize}
+しかしこの分類は結果を見据えた上での分類であり、
+Rive日本語入力におけるコンテキストの分類には適さなかった。
