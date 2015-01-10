@@ -17,6 +17,7 @@ Rive Clientに
 キーボードを使用可能にした。
 キーボードはqwertyキーボードとフリック入力キーボードの二つを実装した。
 ユーザーは好みに合わせて二つのキーボードを使用することができる。
+(実装したキーボード図:\ref{fig:qwerty},図:\ref{fig:flick})
 \begin{figure}[htbp]
   \begin{minipage}{0.5\hsize}
     \begin{center}
@@ -49,6 +50,10 @@ IMEとしての通常の文字変換もないと普段の使用に耐えるこ�
 この機能にがあることによって推薦単語が無意味になる可能性を減らすと共に、
 入力の多様性を確保する。
 この単語変換機能は上下段両方に使用可能な機能である。
+この機能は連続で使用することができるため、
+類語から類語へと連続で新しい候補を辿ることや、
+類語変換したものを英語へ変換するといったことが可能である。
+(単語フリックイメージ図:\ref{fig:wordflick})
 \begin{figure}[htbp]
   \begin{center}
     \includegraphics[width=14cm,bb=0 0 461 485]{images/candidateflick.png}
