@@ -27,6 +27,14 @@ Rive日本語入力システムが実現されている。
 ユーザーは基本的にこのアプリケーションのみ使用する。
 始めにRive Serverにコンテキストデータを送る。
 また帰ってきたデータを推薦単語としてユーザーに提示する。
+(Rive Clientユーザ画面:\ref{fig:riveclient})
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=140mm,bb=0 0 390 578]{images/riveclient.png}
+  \end{center}
+    \caption{Rive Clientユーザ画面}
+    \label{fig:riveclient}
+\end{figure}
 
 \section{Rive Server}
 Rive日本語入力における適切な候補単語を推測するサーバーの総称。
@@ -39,6 +47,7 @@ Rive Clientから受け取ったデータを解析し、
 バージョン管理システムであるgit\footnote{http://git-scm.com}
 のcommit\footnote{http://git-scm.com/docs/git-commit}とデータを紐付けて
 有用性を確かめる為のシステム。
+ユーザは本システムへの直接の関わりは持たない。
 
 \section{Rive Batchprocessing}
 定期的に処理を行うシステムの総称。
@@ -53,4 +62,4 @@ Rive ClientとRive Server間の通信は
 Websocket\footnote{http://dev.w3.org/html5/websockets/}、
 その他システム間はhttpによって実現した。
 Websocketを採用した理由はサーバー側からのプッシュ機構を導入するためと、
-httpより速度が早いためである。\cite{websocket}
+httpより速度が早いためという理由である。\cite{websocket}
