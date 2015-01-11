@@ -70,7 +70,15 @@ Twitterクライアントであれば、
 Rive日本語入力においては\ref{chap:recommend}において
 述べたように実装上、動的コンテキストと静的コンテキストの
 2種類に分類したが、
-Strangらの研究\cite{contextsurvey}によると以下に分類される。
+コンテキストには様々な分類方法が存在する。
+まずソフトウェア開発に関するコンテキストでは
+Kai Petersonらによる研究で\cite{KAIPETERSON}
+Product,Process,Practice/Tool,People,Organization,Market
+という6つにコンテキストが分類されている。
+しかしRive日本語入力において
+示すコンテキストとは多少異なるため、
+主にStrangらの研究\cite{contextsurvey}を参考にした。
+その研究によると一般的にコンテキストとは以下に分類される。
 \begin{itemize}
   \item Key-Value Models
   \item Markup Schema Models
@@ -79,9 +87,27 @@ Strangらの研究\cite{contextsurvey}によると以下に分類される。
   \item Logic Based Models
   \item Ontology Based Models
 \end{itemize}
-しかしこの分類は結果を見すえた上での分類であり、
-コンテキストがどのような推薦結果を提示するのか
-予測が難しいRive日本語入力における
-コンテキストの分類には適さなかった。
+Rive日本語入力においては
+集合知による機械学習手法により、
+コンテキストを用いた推薦を行うため、
+コンテキストを決める際の参考ではなく
+beforeRulesやafterRules等の閾値を考察する際の参考とした。
 
-\subsection{}
+\subsection{コンテキストを用いた入力推薦システム}
+ここではRive日本語入力を作る上で参考とした、
+コンテキストを用いた推薦システムについて述べる。
+特にRive日本語入力に近いと思われるものについて
+挙げる。
+まずRohodesらによるシステムが挙げられる。\cite{ROHODESB.J.:1997}
+このシステムはコンテキストを取得可能なウェアラブルデバイスを使って
+emacs\footnote{http://www.gnu.org/software/emacs/emacs.html}
+の中で利用できるソフトウェア共に成り立っている。
+このシステムにおいては5秒ごとに
+コンテキストを取得し、ユーザにエディターにおける
+最適な文字入力の提案を行うというシステムである。
+エディターという限られた状況に絞っているため問題がないが、
+IMEでは様々な状況かつ入力を行うため、
+予め開発者によって決められている候補だけでは
+充分ではなく、Rive日本語入力においては
+集合知を使うことでこの問題を解決している。
+
