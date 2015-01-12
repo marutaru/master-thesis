@@ -1,4 +1,4 @@
-\chapter{実装}
+\chapter{設計と実装}
 \label{chap:implementation}
 本章ではRive日本語入力全体の設計と、
 構成する各システムについての詳細な実装の解説を行う。
@@ -69,13 +69,14 @@ Rive日本語入力を利用することが可能である。
 
 \subsection{コンテキスト取得}
 取得するコンテキストについては\ref{sec:getcontext}項を参照。
-ユーザーが入力できるコンテキストはユーザが入力する。
+物理的なセンシングからは推測が困難であるが、
+有用であると考えられるコンテキストは
+設定画面においてユーザーが入力を行う。
 その他デバイスで取得可能なものを全て取得し、推薦システムに使う。
 
 \section{Rive Server}
 \label{sec:riveserver}
-Rive日本語入力における適切な候補単語を推測するサーバー郡の総称であり、
-実際はVPS上で動かしているサーバー群である。
+Rive日本語入力における適切な候補単語を推測するサーバー郡の総称である。
 Rive Clientからコンテキストデータを受け取り、
 集合知を用いて解析を行う。
 解析し適した候補単語を推測し、それら候補単語をRive Clientに送信する。
@@ -84,7 +85,7 @@ Rive Clientからコンテキストデータを受け取り、
 \subsection{システム構成}
 サーバーの中身は大きくRoutting Server,beforeRules,afterRules,Jubatusの
 4つから成り立っている。
-Routing Serverは高速な処理が可能な
+Routing Serverは非同期処理に適した
 Node.js\footnote{http://nodejs.jp/}によって実装した。
 それぞれ候補単語の計算手法が異なるため(図:\ref{fig:riveserver})
 ような分割になっている。
@@ -116,7 +117,7 @@ Routing Serverは二通りの役割を担っている。
 一つはデバイスから受け取ったコンテキストデータを
 beforeRules,Jubatus,afterRulesの３つの計算エンジン
 のどれに振り分けるかを判断し、それぞれに送信する役割である。
-もう一つは受け取ったデータを受け取り次第、デバイスに返信する役割である。
+もう一つはデータを受け取り次第、デバイスに返信する役割である。
 
 \subsection{beforeRules}
 \label{sec:beforerules}
@@ -219,7 +220,7 @@ beforeRules,Jubatus,afterRulesの３つの計算エンジン
 DBを定期的にアップデートするプログラムなどが構成している。
 
 \section{Rive Webservice}
-このシステムはインターネット上で閲覧可能なホームページとして実装した。
+このシステムはインターネット上で利用可能なWebページとして実装した。
 Rive Serverの推薦を試用することができ、
 またRive日本語入力の使い方などを説明している。
 \footnote{http://rive.in}
@@ -248,4 +249,4 @@ Websocket\footnote{http://dev.w3.org/html5/websocket/}、
 その他のシステム間はhttpによって実現した。
 Websocketを採用した理由はサーバー側からのプッシュ機構
 を導入するためと、
-httpより速度が早いためという理由である。\cite{websocket}
+httpより速度が早いためという理由である\cite{websocket}。
