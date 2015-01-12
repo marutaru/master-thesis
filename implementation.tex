@@ -1,9 +1,30 @@
 \chapter{実装}
 \label{chap:implementation}
-本章ではRive日本語入力を構成する各システムについて
-詳細な実装の解説を行う。
+本章ではRive日本語入力全体の設計と、
+構成する各システムについての詳細な実装の解説を行う。
 
 \newpage
+\section{Rive日本語入力システム}
+Rive日本語入力システムは以下のものによって構成されている。
+\begin{itemize}
+  \item Rive Client
+  \item Rive Server
+  \item Rive Analytics
+  \item Rive Batchprocessing
+  \item Rive Webservice
+  \item DataBase
+\end{itemize}
+これらのシステムがお互いに作用することで
+Rive日本語入力システムを実現している。
+(システム全体構成図:\ref{fig:systemstructure})
+\begin{figure}[htbp]
+  \begin{center}
+    \includegraphics[width=120mm,bb=0 0 540 448]{images/systemstructure.png}
+  \end{center}
+  \caption{システム全体構成図}
+  \label{fig:systemstructure}
+\end{figure}
+
 \section{Rive Client}
 \label{sec:riveclient}
 本システムはAndroidOS上で動くアプリケーション
@@ -11,6 +32,14 @@
 ユーザは本アプリケーションをインストールし、
 使用するIMEに選択することで
 Rive日本語入力を利用することが可能である。
+(Rive Clientユーザ画面:\ref{fig:riveclient})
+\begin{figure}[htbp]
+  \begin{center}
+    \includegraphics[width=140mm,bb=0 0 390 578]{images/riveclient.png}
+  \end{center}
+  \caption{Rive Clientユーザー画面}
+  \label{fig:riveclient}
+\end{figure}
 
 \subsection{システムフロー}
 このシステムが立ち上がるとまず始めにonCreate()メソッド
@@ -45,8 +74,12 @@ Rive日本語入力を利用することが可能である。
 
 \section{Rive Server}
 \label{sec:riveserver}
-VPS上で動かしているサーバー群である。
-主に推薦に関する処理を担っている。
+Rive日本語入力における適切な候補単語を推測するサーバー郡の総称であり、
+実際はVPS上で動かしているサーバー群である。
+Rive Clientからコンテキストデータを受け取り、
+集合知を用いて解析を行う。
+解析し適した候補単語を推測し、それら候補単語をRive Clientに送信する。
+またRive Analyticsに入力データを送信するという役割も担っている。
 
 \subsection{システム構成}
 サーバーの中身は大きくRoutting Server,beforeRules,afterRules,Jubatusの
@@ -106,10 +139,13 @@ beforeRules,Jubatus,afterRulesの３つの計算エンジン
 
 \section{Rive Analytics}
 このシステムはRive Clientでのプロセスの終わりに
-送られてくる入力データを受信し、解析するシステムである。
-開発者はこのシステムを既発時に使用することによって、
-新しい機能の有用性などを
-確かめることができる。
+送られてくる入力データを受け取り、解析するシステムである。
+開発者はこのシステムを開発時に使用することによって、
+新しい機能の有用性などを確かめることができる。
+バージョン管理システムであるgit\footnote{http://git-scm.com}
+のcommit\footnote{http://git-scm.com/docs/git-commit}
+とデータを紐付けて入力データを管理する。
+ユーザーは直接本システムとの関わりは持たない。
 
 \subsection{指標値に用いる単語の説明}
 \begin{description}
@@ -184,9 +220,13 @@ DBを定期的にアップデートするプログラムなどが構成してい
 
 \section{Rive Webservice}
 このシステムはインターネット上で閲覧可能なホームページとして実装した。
-Rive ServerとRive Webserviceは通信を行い、
-仮想のコンテキストを作り出すことで
-推薦の状態を確かめることができる。
+Rive Serverの推薦を試用することができ、
+またRive日本語入力の使い方などを説明している。
+\footnote{http://rive.in}
+Rive Serverと通信を行い、
+Rive Webservice上で仮想のコンテキストを設定することで、
+どのような推薦候補単語を受け取ることができるか
+シミュレーションすることができる。
 (体験画面イメージ:\ref{fig:rivewebservice})
 \begin{figure}[htbp]
   \begin{center}
@@ -196,3 +236,16 @@ Rive ServerとRive Webserviceは通信を行い、
   \end{center}
 \end{figure}
 
+\section{データベース}
+取得するコンテキスト共に、
+スキーマが頻繁に変わるため
+スキーマの変更に対応しやすいNoSQLデータベースである、
+MongoDB\footnote{http://www.mongodb.org/}を採用した。
+
+\section{システム間通信}
+Rive ClientとRive Server間の通信は
+Websocket\footnote{http://dev.w3.org/html5/websocket/}、
+その他のシステム間はhttpによって実現した。
+Websocketを採用した理由はサーバー側からのプッシュ機構
+を導入するためと、
+httpより速度が早いためという理由である。\cite{websocket}

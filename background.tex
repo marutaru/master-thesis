@@ -1,11 +1,74 @@
 \chapter{背景}
 \label{chap:background}
 本章では本研究の背景となった、
-モバイルデバイスへの文字入力機会増加、日本語入力と英語入力の差異、
-日本語IMEの不満について述べる。
+日本語IMEへの不満と期待、
+モバイルデバイスへの文字入力機会増加、日本語入力と英語入力の差異
 について述べる。
 
 \newpage
+\section{日本語IMEへの不満と期待}
+日本語IMEには様々な不満と期待が存在する。
+
+\subsection{日本語IMEへの不満}
+楽天リサーチによる「スマートフォンに関する調査」
+(出典:\cite{rakutensmartphone})によると、
+スマートフォンを使うユーザーが挙げる不満点の中で
+最も割合が大きいのが「文字入力がしにくい」ということである。
+(スマートフォンを利用している際に不便だと感じる点出典:\cite{rakutensmartphone})
+\begin{figure}[htbp]
+  \begin{center}
+    \includegraphics[width=140mm,bb=0 0 589 368]{images/dissatisfaction.png}
+  \end{center}
+  \caption{スマートフォンを利用している際に不便だと感じる点(出典:\cite{rakutensmartphone})}
+  \label{fig:dissatisfaction}
+\end{figure}
+文字入力がしにくい理由としてはデバイスが携帯電話から
+変化しているにもかかわらず、
+IMEの入力方式インタフェースがほとんど変わっていないためであると考えた。
+携帯電話の時には折りたたみ式やストレート式、スライド式といくつか存在したが、
+\begin{figure}[htbp]
+  \begin{minipage}{0.3\hsize}
+    \begin{center}
+      \includegraphics[width=50mm,bb=0 0 1024 768]{images/oritatami.png}
+    \end{center}
+    \caption{折りたたみ式携帯電話例:(出典:\cite{keitai})}
+    \label{fig:oritatami}
+  \end{minipage}
+  \begin{minipage}{0.3\hsize}
+    \begin{center}
+      \includegraphics[width=50mm,bb=0 0 147 196]{images/straight.png}
+    \end{center}
+    \caption{ストレート式携帯電話例(出典:\cite{keitai})}
+    \label{fig:straight}
+  \end{minipage}
+  \begin{minipage}{0.3\hsize}
+    \begin{center}
+      \includegraphics[width=50mm,bb=0 0 154 205]{images/slide.png}
+    \end{center}
+    \caption{スライド式携帯電話例:(出典:\cite{keitai})}
+    \label{fig:slide}
+  \end{minipage}
+\end{figure}
+入力方式はどれもキーパッド式であり、12個あるキー
+(あかさたなはまやらわ\#*)をそれぞれ
+何度も押すことで、(三回タッチすると「あ→い→う」の用に変化する)
+文字を入力していく方式であった。
+しかし現在のモバイルデバイスは多くがタッチスクリーン式
+に変化しており、これらキーパッド方式時代の名残である
+入力方式はタッチスクリーンでの体験を重視したものに
+変化させていくべきである。\cite{designinginterface}
+
+\subsection{IMEへの期待}
+最終的には入力したいと思った文字を何もせずにそのまま
+入力できるようなIMEを開発したいと考えている。
+しかしそこまでにはまだまだ現状とは大きな隔たりがある。
+そこでその前段階としてコンテキストからユーザーの
+入力したい単語を推測し、提示することで
+入力のユーザーエクスペリエンスを大幅に向上させるIME
+を研究・開発した。
+また今回は日本語IMEとして実装したが、
+実装されているコンテキスト推薦機能などは
+
 \section{モバイルデバイスへの文字入力の機会の増加}
 今日モバイルデバイスにおいて、文字入力をする機会が増加している。
 そのためIMEの省入力化への需要が高まっている。
@@ -22,9 +85,9 @@
 \begin{figure}[htbp]
   \begin{center}
     \includegraphics[width=160mm,bb=0 0 856 494]{images/mobiledevicespread.png}
-    \caption{情報通信端末世帯保有率の推移(出典:\cite{communicationreport})}
-    \label{fig:mobiledevicespread}
   \end{center}
+  \caption{情報通信端末世帯保有率の推移(出典:\cite{communicationreport})}
+  \label{fig:mobiledevicespread}
 \end{figure}
 平成22年には9.7％しかなかったスマートフォンの普及率は、
 平成25年には62.6％と急激に成長している。
@@ -51,9 +114,9 @@
 \begin{figure}[htbp]
   \begin{center}
     \includegraphics[width=115mm,bb=0 0 500 1001]{images/purpose.png}
-    \caption{スマートフォンでどのような機能・アプリを使っているか(出典:\cite{researchbanksmartphone})}
-    \label{fig:purpose}
   \end{center}
+  \caption{スマートフォンでどのような機能・アプリを使っているか(出典:\cite{researchbanksmartphone})}
+  \label{fig:purpose}
 \end{figure}
 メールアプリを使う人が78.1％、SNSアプリを使う人が44.8％、
 コミュニケーションアプリを使う人が44.5％となっている。
@@ -121,65 +184,3 @@ CPUやメモリを積んでいるものも多く市販されている。
 これらのシステムは様々に応用可能で広く
 普及したがいまだ日本語IMEへの改善の余地は多く残されていると考える。
 
-\section{日本語IMEへの不満と期待}
-日本語IMEには様々な不満と期待が存在する。
-
-\subsection{日本語IMEへの不満}
-楽天リサーチによる「スマートフォンに関する調査」
-(出典:\cite{rakutensmartphone})によると、
-スマートフォンを使うユーザーが挙げる不満点の中で
-最も割合が大きいのが「文字入力がしにくい」ということである。
-(スマートフォンを利用している際に不便だと感じる点 出典:\cite{rakutensmartphone})
-\begin{figure}[htbp]
-  \begin{center}
-    \includegraphics[width=140mm,bb=0 0 589 368]{images/dissatisfaction.png}
-    \caption{スマートフォンを利用している際に不便だと感じる点(出典:\cite{rakutensmartphone})}
-    \label{fig:dissatisfaction}
-  \end{center}
-\end{figure}
-文字入力がしにくい理由としてはデバイスが携帯電話から
-変化しているにもかかわらず、
-IMEの入力方式インタフェースがほとんど変わっていないためであると考えた。
-携帯電話の時には折りたたみ式やストレート式、スライド式といくつか存在したが、
-\begin{figure}[htbp]
-  \begin{minipage}{0.3\hsize}
-    \begin{center}
-      \includegraphics[width=50mm,bb=0 0 1024 768]{images/oritatami.png}
-    \end{center}
-    \caption{折りたたみ式携帯電話例:(出典:\cite{keitai})}
-    \label{fig:oritatami}
-  \end{minipage}
-  \begin{minipage}{0.3\hsize}
-    \begin{center}
-      \includegraphics[width=50mm,bb=0 0 147 196]{images/straight.png}
-    \end{center}
-    \caption{ストレート式携帯電話例(出典:\cite{keitai})}
-    \label{fig:straight}
-  \end{minipage}
-  \begin{minipage}{0.3\hsize}
-    \begin{center}
-      \includegraphics[width=50mm,bb=0 0 154 205]{images/slide.png}
-    \end{center}
-    \caption{スライド式携帯電話例:(出典:\cite{keitai})}
-    \label{fig:slide}
-  \end{minipage}
-\end{figure}
-入力方式はどれもキーパッド式であり、12個あるキー
-(あかさたなはまやらわ\#*)をそれぞれ
-何度も押すことで、(三回タッチすると「あ→い→う」の用に変化する)
-文字を入力していく方式であった。
-しかし現在のモバイルデバイスは多くがタッチスクリーン式
-に変化しており、これらキーパッド方式時代の名残である
-入力方式はタッチスクリーンでの体験を重視したものに
-変化させていくべきである。\cite{designinginterface}
-
-\subsection{IMEへの期待}
-最終的には入力したいと思った文字を何もせずにそのまま
-入力できるようなIMEを開発したいと考えている。
-しかしそこまでにはまだまだ現状とは大きな隔たりがある。
-そこでその前段階としてコンテキストからユーザーの
-入力したい単語を推測し、提示することで
-入力のユーザーエクスペリエンスを大幅に向上させるIME
-を研究・開発した。
-また今回は日本語IMEとして実装したが、
-実装されているコンテキスト推薦機能などは
