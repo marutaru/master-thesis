@@ -6,23 +6,26 @@
 \newpage
 \section{Rive Client}
 \label{sec:riveclient}
-本システムはAndroidOS\footnote[1]{http://www.google.com/intl/ja/mobile/android/}
-上で動くアプリケーション
+本システムはAndroidOS上で動くアプリケーション
 として実装した。
 ユーザは本アプリケーションをインストールし、
 使用するIMEに選択することで
-Rive日本語入力を利用することができる。
+Rive日本語入力を利用することが可能である。
 
 \subsection{システムフロー}
-このシステムが立ち上がるとまず始めにonCreate()が呼ばれ、初期化を行う。
+このシステムが立ち上がるとまず始めにonCreate()メソッド
+が呼ばれ、システムのイニシャライズを行う。
 その後onStartInput()メソッドが呼ばれコンテキストを取得する。
-このコンテキストはデバイスの情報を取得する。
-コンテキストを取得し次第、候補単語を取得する。
-この候補単語はサーバーと通信した上で取得する。
+ここで取得するコンテキストは静的コンテキストと
+動的コンテキストの両方である。
+コンテキストを取得し次第、この候補単語はサーバーと通信した上で
+推薦候補単語を取得する。
 これをユーザーが一つの操作を行うたびに繰り返す。
-ここで言う一つの動作とは、キーボード上の一つの文字を押すことや、
-候補の単語をタップすること、
-あるいは文字をデリートすることも含まれる。
+ここで言う一つの動作とは、
+キーボード上の一つの文字を押すことであるonKeyDown()メソッドや、
+候補の単語をタッチするpickCandidateWord()メソッド、
+あるいは文字をデリートするdeleteWord()メソッドも含まれる。
+二回目移行のコンテキスト取得においては動的コンテキストのみの取得となる。
 最終的にユーザーが入力を終了した場合にはonFinishInput()が呼ばれ、
 今回のユーザが行った動作とコンテキストを紐付けサーバーに送信する。
 通信が終わり次第onDestory()が呼ばれ本システムは終了する。
@@ -37,7 +40,7 @@ Rive日本語入力を利用することができる。
 
 \subsection{コンテキスト取得}
 取得するコンテキストについては\ref{sec:getcontext}項を参照。
-コンテキストはユーザーが入力できるものはユーザが入力する。
+ユーザーが入力できるコンテキストはユーザが入力する。
 その他デバイスで取得可能なものを全て取得し、推薦システムに使う。
 
 \section{Rive Server}
@@ -47,8 +50,9 @@ VPS上で動かしているサーバー群である。
 
 \subsection{システム構成}
 サーバーの中身は大きくRoutting Server,beforeRules,afterRules,Jubatusの
-４つを実装した。
-Routing ServerはNode.js\footnote{http://nodejs.jp/}によって実装した。
+4つから成り立っている。
+Routing Serverは高速な処理が可能な
+Node.js\footnote{http://nodejs.jp/}によって実装した。
 それぞれ候補単語の計算手法が異なるため(図:\ref{fig:riveserver})
 ような分割になっている。
 \begin{figure}[htbp]
@@ -69,44 +73,47 @@ Routing Serverは受け取ったデータを更にクライアントへ送る。
 そのデータを元に推薦候補単語をRouting Serverへ送る。
 そしてそれをクライントに返すことで完了する。
 一回のタッチごとにこれら全てのプロセスを行う。
+クライアントは非同期に受け取った推薦候補単語をスコア順にソートして表示する。
 またこれらの一度の過程ごとにユニークなIDをつけてあり、
 途中で新しいプロセスが始まった場合前のプロセスは破棄されることで
 常に最新の推薦候補単語を受け取ることができる。
 
 \subsection{Routing Server}
-このサーバーはふたとおりの役割を持っている。
+Routing Serverは二通りの役割を担っている。
 一つはデバイスから受け取ったコンテキストデータを
-beforeRules,Jubatus,afterRulesの３つの計算エンジンに振り分け送信する役割である。
-もうひとつは受け取ったデータを受け取り次第、デバイスに送信する役割である。
+beforeRules,Jubatus,afterRulesの３つの計算エンジン
+のどれに振り分けるかを判断し、それぞれに送信する役割である。
+もう一つは受け取ったデータを受け取り次第、デバイスに返信する役割である。
 
 \subsection{beforeRules}
 \label{sec:beforerules}
 このエンジンはコンテキストデータが送られてきた際に、
-一定のルールに基づいているものをまとめている。
+一定のルールに基づいて推薦候補を計算するものをまとめている。
 このルールは開発者がよく使う単語を推測し実装した。
 例えば、Twitter\footnote{http://twitter.com/}
 クライアントに入力を行っている（行おうとしている）
 場合に「なう」「＠」の候補単語を返すようになっている。
 
 \subsection{Jubatus}
-このエンジンについては第\ref{sec:jubatus}項参照。
+このエンジンについては\ref{sec:jubatus}項参照。
 
 \subsection{afterRules}
 \label{sec:afterrules}
 このエンジンはbeforeRulesより重要度が低く、
 また計算に時間がかかるものを推測して実装した。
 例えば、最寄り駅をクエリとしてその駅を通っている電車の線を
-その場でWEBから検索し推薦単語として返すことができる。
+その場でWEBから検索し推薦単語として返すという処理などである。
 
 \section{Rive Analytics}
-このシステムはRive Client\ref{sec:riveclient}でのプロセスの終わりに
-送られてくるデータを受信し、解析するシステムである。
-開発者はこのシステムを使用することによって、新しい機能の有用性などを
+このシステムはRive Clientでのプロセスの終わりに
+送られてくる入力データを受信し、解析するシステムである。
+開発者はこのシステムを既発時に使用することによって、
+新しい機能の有用性などを
 確かめることができる。
 
 \subsection{指標値に用いる単語の説明}
 \begin{description}
-  \item[click] タッチ
+  \item[click] デバイスにおける全てのタッチ
   \item[touch] 候補単語のタッチ
   \item[before] beforeRules(\ref{sec:beforerules}項)からのタッチ
   \item[after] afterRules(\ref{sec:afterrules}項)からのタッチ
@@ -123,7 +130,7 @@ beforeRules,Jubatus,afterRulesの３つの計算エンジンに振り分け送�
   \item msPI - milliseconds Per Input\mbox{}\\
     この指標値は一度の入力に対して
     平均で何ミリ秒かかったかを示している値である。
-    値を低く保つことで入力の少入力かを達成できる。
+    値を低く保つことで入力の省入力化を達成できる。
   \item TPI - Touch Candidate Per Input\mbox{}\\
     この指標値は一度の入力に対して
     平均で何度候補単語をタッチしたかを示している値である。
@@ -141,11 +148,11 @@ beforeRules,Jubatus,afterRulesの３つの計算エンジンに振り分け送�
     この指標値はJubatusによる推薦単語がタッチされた時に、
     いくつのスコアのものがタッチされたかを示す値である。
     beforeRulesやafterRulesの閾値の参考にする値である。
-  \item BPR - BeforeRules Per Recommend\mbox{}\\
+  \item BPR - Before rules Per Recommend\mbox{}\\
     この指標値は推薦単語がタッチされたうちの
     beforeRulesのタッチされた割合を示す値である。
     beforeRulesの有用性を示す値となる。
-  \item APR - AfterRules Per Recommend\mbox{}\\
+  \item APR - After rules Per Recommend\mbox{}\\
     この指標値は推薦単語がタッチされたうちの
     afterRulesのタッチされた割合を示す値である。
     afterRulesの有用性を示す値となる。
@@ -167,6 +174,8 @@ beforeRules,Jubatus,afterRulesの３つの計算エンジンに振り分け送�
     \label{fig:riveanalytics}
   \end{center}
 \end{figure}
+必要な指標値と開発におけるバージョンを見比べながら
+有効であると思われる機能についての開発の参考にする。
 
 \section{Rive Batchprocessing}
 このシステムは定期的に処理を行うものを管理し実行している。
